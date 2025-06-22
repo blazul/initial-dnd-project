@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Exclude these real directories/files from rewriting
+RewriteRule ^(css|includes|admin|campaigns|characters|attributes|sessions|public|\.htaccess)$ - [L]
+
+# If the request isn’t an existing file or folder…
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# …then internally rewrite it into /public/
+RewriteRule ^(.*)$ public/$1 [L]
