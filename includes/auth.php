@@ -1,10 +1,7 @@
 <?php
 // Defines BASE_URL, starts session, and provides auth helpers
 
-if (! defined('BASE_URL')) {
-    define('BASE_URL', '/Projekt_PHP/');
-}
-
+require_once __DIR__ . '/config.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -13,7 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
  * Require that a user be logged in.
  * Redirects to login.php if not.
  */
-function require_login(): void {
+function require_login() {
     if (empty($_SESSION['user_id'])) {
         header('Location: ' . BASE_URL . 'public/login.php');
         exit;

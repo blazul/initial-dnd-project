@@ -1,5 +1,7 @@
 <?php
 // friends/list.php
+
+require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_login();
 require_once __DIR__ . '/../includes/db.php';
@@ -32,7 +34,13 @@ $friends = $stmt->fetchAll();
   <?php else: ?>
     <ul>
       <?php foreach ($friends as $f): ?>
-        <li><?= htmlspecialchars($f['username']) ?></li>
+        <li>
+          <?= htmlspecialchars($f['username']) ?>
+          <form method="post" action="<?= BASE_URL ?>friends/remove.php" style="display:inline">
+            <input type="hidden" name="friend_id" value="<?= $f['user_id'] ?>">
+            <button type="submit">Remove</button>
+          </form>
+        </li>
       <?php endforeach; ?>
     </ul>
   <?php endif; ?>

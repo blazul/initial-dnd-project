@@ -7,12 +7,12 @@ require_once __DIR__ . '/../includes/header.php';
 
 $errors = [];
 
-// 1) Pre-fill campaign_id from GET if provided
+//  Pre-fill campaign_id from GET if provided
 $campaignId = (isset($_GET['campaign_id']) && is_numeric($_GET['campaign_id']))
             ? (int)$_GET['campaign_id']
             : null;
 
-// 2) Default values for all other fields
+//Default values
 $name        = '';
 $race        = '';
 $charClass   = '';
@@ -26,7 +26,7 @@ $initiative  = 0;
 $description = '';
 $str = $dex = $con = $int = $wis = $cha = 10;
 
-// 3) Load campaigns owned or shared with this user
+// Load campaigns owned or shared with this user
 $stmt = $pdo->prepare("
     SELECT DISTINCT c.campaign_id, c.name
       FROM campaigns c
@@ -41,7 +41,6 @@ $stmt->execute([
 ]);
 $campaigns = $stmt->fetchAll();
 
-// 4) Static dropdown options
 $races       = ['Human','Elf','Dwarf','Halfling','Dragonborn','Gnome','Half-Elf','Half-Orc','Tiefling'];
 $classes     = ['Barbarian','Bard','Cleric','Druid','Fighter','Monk','Paladin','Ranger','Rogue','Sorcerer','Warlock','Wizard'];
 $backgrounds = ['Acolyte','Charlatan','Criminal','Entertainer','Folk Hero','Guild Artisan','Hermit','Noble','Outlander','Sage','Sailor','Soldier','Urchin'];

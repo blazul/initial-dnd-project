@@ -1,0 +1,113 @@
+/*--------------------------------------------------------------
+>>> Bootstrap + Grayscale
+----------------------------------------------------------------
+*/
+@import url("https://cdn.jsdelivr.net/npm/startbootstrap-grayscale@7.0.6/dist/css/styles.min.css");
+
+/*--------------------------------------------------------------
+>>> Custom Dashboard Overrides
+----------------------------------------------------------------
+*/
+
+/* 1) Wrap campaigns in the same card‐grid as characters */
+.dashboard > h2:nth-of-type(1) + .row {
+  /* reuse the same gutter and multi‐col layout as characters */
+  --bs-gutter-x: 1rem;
+  margin-bottom: 1.5rem;
+}
+.dashboard > h2:nth-of-type(1) + .row > .col {
+  display: flex;
+}
+.dashboard > h2:nth-of-type(1) + .row > .col > .card {
+  flex: 1 1 auto;
+}
+
+/* 2) Push the action buttons (Edit/Delete) to the far right */
+.dashboard .card-body {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start;
+}
+
+/* 3) Ensure the campaign title grows to fill the space */
+.dashboard .card-body .card-title {
+  flex: 1 1 auto;
+  margin-right: 1rem;
+}
+
+/* 4) Tweak the "+ Add Campaign" button spacing */
+a.btn-primary.mb-5 {
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+/* 5) Match character cards exactly */
+.dashboard .row-cols-md-2 > .col,   /* campaigns */
+.dashboard .row-cols-md-3 > .col {  /* characters */
+  margin-bottom: 1rem;
+}
+
+/* 6) Optional: make all cards uniform height */
+.dashboard .card {
+  height: 100%;
+}
+/* ==========================================================================
+   Global button restyle to match “+ Add Campaign”
+   ========================================================================== */
+.btn,
+button,
+input[type="submit"] {
+  display: inline-block;
+  padding: 1rem 2rem;             /* bigger clickable area */
+  background-color: #69A89E;      /* your campaign‐button greenish */
+  color: #fff !important;         /* force white text */
+  border: none;                   /* no border */
+  border-radius: 0.5rem;          /* rounded corners */
+  text-transform: uppercase;      /* uppercase labels */
+  letter-spacing: 0.05em;         /* a little tracking */
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  cursor: pointer;
+  line-height: 1;
+  text-decoration: none;
+}
+
+/* hover/active states */
+.btn:hover,
+button:hover,
+input[type="submit"]:hover {
+  background-color: #5c8d88;
+  transform: translateY(-1px);
+}
+.btn:active,
+button:active,
+input[type="submit"]:active {
+  background-color: #51796e;
+  transform: translateY(0);
+}
+
+/* de-emphasis for disabled buttons */
+.btn:disabled,
+button:disabled,
+input[type="submit"]:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+/* center the brand/title in the navbar */
+.navbar {
+  position: relative; /* needed for absolute‐positioning the brand */
+}
+
+.navbar .navbar-brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;              /* remove any default margin */
+  font-weight: 700;       /* if you like it bold */
+}
+
+/* if you still need your nav links on the left or right, push them aside */
+.navbar-nav {
+  margin-left: auto;
+}

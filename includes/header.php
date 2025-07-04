@@ -1,47 +1,83 @@
 <?php
 // includes/header.php
+
+// 1) Start session
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// 2) Load BASE_URL and anything else
+require_once __DIR__ . '/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>D&amp;D Character Manager</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><?= htmlspecialchars($pageTitle ?? 'DnD Manager') ?></title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.4.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QFY6qcfOWmT2rDB1pPvrTDm+J9ZNW0mO/pXuXqGd8P4p8kFZO1t2mEnv9K6JYtY+"
+    crossorigin="anonymous"
+  >
+
+  <!-- Custom styles -->
   <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css">
 </head>
 <body>
-  <header>
-    <h1><a href="<?= BASE_URL ?>public/index.php">D&amp;D Character Manager</a></h1>
-    <nav>
-      <ul>
-        <?php if (empty($_SESSION['user_id'])): ?>
-          <li><a href="<?= BASE_URL ?>public/index.php">Home</a></li>
-          <li><a href="<?= BASE_URL ?>public/login.php">Log In</a></li>
-          <li><a href="<?= BASE_URL ?>public/register.php">Register</a></li>
-        <?php else: ?>
-          <li><a href="<?= BASE_URL ?>public/dashboard.php">Dashboard</a></li>
-          <li><a href="<?= BASE_URL ?>campaigns/list.php">Campaigns</a></li>
-          <li><a href="<?= BASE_URL ?>characters/list.php">Characters</a></li>
+  <header class="bg-light mb-4">
+    <nav class="navbar navbar-expand-lg navbar-light container">
+      <!-- left spacer for perfect centering on desktop -->
+      <div class="collapse navbar-collapse order-1 order-lg-0">
+        <ul class="navbar-nav"></ul>
+      </div>
 
-          <!-- Friends Menu -->
-          <li>
-            Friends
-            <ul class="dropdown">
-              <li><a href="<?= BASE_URL ?>friends/send.php">Send Request</a></li>
-              <li><a href="<?= BASE_URL ?>friends/requests.php">Incoming Requests</a></li>
-              <li><a href="<?= BASE_URL ?>friends/list.php">My Friends</a></li>
-            </ul>
-          </li>
+      <!-- brand centered -->
+      <a class="navbar-brand mx-auto order-0 order-lg-1" href="<?= BASE_URL ?>public/index.php">
+        DnD Manager
+      </a>
 
-          <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
-            <li><a href="<?= BASE_URL ?>admin/users.php">Manage Users</a></li>
-            <li><a href="<?= BASE_URL ?>admin/characters.php">All Characters</a></li>
-            <li><a href="<?= BASE_URL ?>admin/campaigns.php">All Campaigns</a></li>
+      <!-- right nav links -->
+      <div class="collapse navbar-collapse justify-content-end order-2" id="mainNav">
+        <ul class="navbar-nav">
+          <?php if (! empty($_SESSION['user_id'])): ?>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="<?= BASE_URL ?>friends/send.php">
+                Friends
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="<?= BASE_URL ?>public/logout.php">
+                Logout (<?= htmlspecialchars($_SESSION['username'] ?? '') ?>)
+              </a>
+            </li>
+          <?php else: ?>
+            <li class="nav-item">
+              <a class="nav-link" href="<?= BASE_URL ?>public/login.php">Log In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?= BASE_URL ?>public/register.php">Register</a>
+            </li>
           <?php endif; ?>
+        </ul>
+      </div>
 
-          <li><a href="<?= BASE_URL ?>public/logout.php">Log Out</a></li>
-        <?php endif; ?>
-      </ul>
+      <!-- mobile toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mainNav"
+        aria-controls="mainNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </nav>
   </header>
-  <main>
+
+  <main class="container">

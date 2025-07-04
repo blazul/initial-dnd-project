@@ -1,12 +1,13 @@
 <?php
 // friends/requests.php
+
+require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_login();
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/header.php';
 
 $me = $_SESSION['user_id'];
-$errors = [];
 
 // Handle accept/reject
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -45,7 +46,7 @@ $requests = $stmt->fetchAll();
       <?php foreach ($requests as $r): ?>
         <li>
           <?= htmlspecialchars($r['username']) ?>
-          (requested at <?= $r['requested_at'] ?>)
+          (requested at <?= htmlspecialchars($r['requested_at']) ?>)
           <form method="post" style="display:inline">
             <input type="hidden" name="friendship_id" value="<?= $r['friendship_id'] ?>">
             <button name="action" value="accepted">Accept</button>
