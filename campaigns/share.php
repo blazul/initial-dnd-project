@@ -2,7 +2,7 @@
 // campaigns/share.php
 require_once __DIR__ . '/../includes/auth.php';
 require_login();
-require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/config.php';
 
 $me = $_SESSION['user_id'];
 $cid = (int)($_POST['campaign_id'] ?? 0);
